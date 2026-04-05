@@ -2,85 +2,93 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Glitch Intro</title>
+  <title>Code Entry</title>
   <style>
     html, body {
       margin: 0;
       padding: 0;
       background: black;
-      overflow: hidden;
       height: 100%;
-      font-family: Arial, Helvetica, sans-serif;
-    }
-
-    .container {
       display: flex;
       align-items: center;
       justify-content: center;
-      height: 100%;
-    }
-
-    .glitch {
+      font-family: Arial, sans-serif;
       color: white;
-      font-size: 3rem;
-      position: relative;
-      opacity: 0;
-      animation: fadeIn 3s ease forwards;
     }
 
-    /* Fade in */
-    @keyframes fadeIn {
-      0% { opacity: 0; }
-      100% { opacity: 1; }
+    .box {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
     }
 
-    /* Glitch layers */
-    .glitch::before,
-    .glitch::after {
-      content: "Can you hear me ?";
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 100%;
-      overflow: hidden;
+    input {
+      padding: 10px;
+      font-size: 16px;
+      border: none;
+      outline: none;
+      width: 200px;
+      text-align: center;
+    }
+
+    .shake {
+      animation: shake 0.3s;
+    }
+
+    @keyframes shake {
+      0% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      50% { transform: translateX(5px); }
+      75% { transform: translateX(-5px); }
+      100% { transform: translateX(0); }
+    }
+
+    .link {
+      display: none;
+      margin-top: 20px;
       color: white;
-      background: black;
+      text-align: center;
     }
 
-    .glitch::before {
-      left: 2px;
-      text-shadow: -2px 0 red;
-      animation: glitchTop 2s infinite linear alternate-reverse;
-    }
-
-    .glitch::after {
-      left: -2px;
-      text-shadow: -2px 0 blue;
-      animation: glitchBottom 2s infinite linear alternate-reverse;
-    }
-
-    @keyframes glitchTop {
-      0% { clip-path: inset(0 0 80% 0); }
-      20% { clip-path: inset(0 0 60% 0); }
-      40% { clip-path: inset(0 0 40% 0); }
-      60% { clip-path: inset(0 0 20% 0); }
-      80% { clip-path: inset(0 0 10% 0); }
-      100% { clip-path: inset(0 0 80% 0); }
-    }
-
-    @keyframes glitchBottom {
-      0% { clip-path: inset(80% 0 0 0); }
-      20% { clip-path: inset(60% 0 0 0); }
-      40% { clip-path: inset(40% 0 0 0); }
-      60% { clip-path: inset(20% 0 0 0); }
-      80% { clip-path: inset(10% 0 0 0); }
-      100% { clip-path: inset(80% 0 0 0); }
+    a {
+      color: cyan;
+      font-size: 18px;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="glitch">Can you hear me ?</div>
+
+<div>
+  <div id="box" class="box">
+    <input id="codeInput" type="text" placeholder="Enter code" />
   </div>
+
+  <div id="link" class="link">
+    <p>Access granted:</p>
+    <a href="https://www.youtube.com/watch?v=Fc1u-bggcfY" target="_blank">
+      https://www.youtube.com/watch?v=Fc1u-bggcfY
+    </a>
+  </div>
+</div>
+
+<script>
+  const input = document.getElementById('codeInput');
+  const box = document.getElementById('box');
+  const link = document.getElementById('link');
+
+  input.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+      if (input.value === '12345') {
+        box.style.display = 'none';
+        link.style.display = 'block';
+      } else {
+        box.classList.add('shake');
+        setTimeout(() => box.classList.remove('shake'), 300);
+      }
+    }
+  });
+</script>
+
 </body>
 </html>
